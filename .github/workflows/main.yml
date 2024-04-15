@@ -9,7 +9,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Deploy to S3
-        run: aws s3 sync ./public s3://${{ env.AWS_S3_BUCKET }}
+        run: aws s3 sync public s3://${{ env.AWS_S3_BUCKET }}
       - name: Clear Cloudfront Cache
         run: aws cloudfront create-invalidation --distribution-id ${{ env.AWS_CF_DISTRIBUTION_ID }} --paths /*
